@@ -107,8 +107,8 @@ contract NFTMarketplace is ReentrancyGuard {
     /// EVENTS ///
     /////////////
     event ItemListed(address indexed nftAddress, uint256 indexed tokenId, address indexed seller, uint256 price);
-    event ItemBought(address indexed nftAddress, uint256 indexed tokenId, address indexed seller, uint256 price);
-    event ItemUpdated(address indexed nftAddress, uint256 indexed tokenId, address indexed buyer, uint256 newPrice);
+    event ItemBought(address indexed nftAddress, uint256 indexed tokenId, address indexed buyer, uint256 price);
+    event ItemUpdated(address indexed nftAddress, uint256 indexed tokenId, address indexed seller, uint256 newPrice);
     event ItemCanceled(address indexed nftAddress, uint256 indexed tokenId, address indexed seller);
 
     /////////////////////////////
