@@ -207,11 +207,11 @@ const { developmentChains } = require("../../helper-config");
 
               it("\x1b[34mShould emit and listen an event named \x1b[36m'ItemBought' \x1b[34mon successful NFT Purchasing!\x1b[0m", async () => {
                   await new Promise(async (resolve, reject) => {
-                      NFTMarketplace.once("ItemBought", async (nftAddress, fetchedTokenId, seller, price) => {
+                      NFTMarketplace.once("ItemBought", async (nftAddress, fetchedTokenId, buyer, price) => {
                           try {
                               console.log("\x1b[32m%s\x1b[0m", `NFT Address: ${nftAddress}`);
                               console.log("\x1b[32m%s\x1b[0m", `NFT TokenId: ${fetchedTokenId.toString()}`);
-                              console.log("\x1b[32m%s\x1b[0m", `NFT Seller/Old Owner Address: ${seller}`);
+                              console.log("\x1b[32m%s\x1b[0m", `NFT Buyer/New Owner Address: ${buyer}`);
                               console.log(
                                   "\x1b[32m%s\x1b[0m",
                                   `NFT Purchaser/New Owner Address: ${await BasicNFT.ownerOf(
@@ -220,7 +220,7 @@ const { developmentChains } = require("../../helper-config");
                               );
                               console.log("\x1b[32m%s\x1b[0m", `NFT Price: ${ethers.utils.formatEther(price)} ETH`);
 
-                              assert.equal(seller, deployer);
+                              assert.equal(buyer, signers[1].address);
                               assert.equal(nftAddress, BasicNFT.address);
                               assert.equal(fetchedTokenId.toString(), tokenId.toString());
                               assert.equal(price.toString(), nftPrice.toString());

@@ -34,3 +34,6 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
 };
 
 module.exports.tags = ["all", "NFTMarketplace", "main"];
+
+// 0x9f691632c58bCc41b0d50050dd33Dc03a5b82e53 -- NFTMarketplace goerli
+// 0x3b52Ab92662bbF5E0701c1Be2373eefD45172fff -- BasicNFT goerli
