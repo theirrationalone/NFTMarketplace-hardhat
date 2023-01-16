@@ -13,6 +13,11 @@ pragma solidity ^0.8.8;
 //////////////
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 
+///////////////
+/// ERRORS ///
+/////////////
+error BasicNFT___InvalidTokenId();
+
 /**
  * @title BasicNFT
  * @dev Basic NFT Contract, allows to mint basic dog image uri.
@@ -29,7 +34,7 @@ contract BasicNFT is ERC721 {
     /// STATE VARIABLES ///
     //////////////////////
     uint256 private s_tokenCounter;
-    string private constant BASIC_DOG_URI = "ipfs://bafybeie5venjwpgkqpthezwtyrm7bqm5wzkiukcvqdyftd4behdamkw3re/";
+    string private constant BASIC_DOG_URI = "ipfs://bafybeifq2mq2rq77enm2cq75wfns5lxnjierhn632vyuk44lolixgwkm4i";
 
     ///////////////
     /// EVENTS ///
@@ -52,7 +57,11 @@ contract BasicNFT is ERC721 {
         s_tokenCounter += 1;
     }
 
-    function tokenURI(uint256 /* tokenId */) public pure override returns (string memory) {
+    function tokenURI(uint256 tokenId) public view override returns (string memory) {
+        if (!_exists(tokenId)) {
+            revert BasicNFT___InvalidTokenId();
+        }
+
         return BASIC_DOG_URI;
     }
 

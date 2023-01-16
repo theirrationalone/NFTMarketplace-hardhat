@@ -22,12 +22,11 @@ const { developmentChains } = require("../../helper-config");
                   assert.equal(tokenCounter.toString(), "0");
               });
 
-              it("\x1b[34mShould have a Dog TokenURI initially!", async () => {
-                  const dogTokenURI = await BasicNFT.tokenURI("0");
-
-                  console.log("\x1b[32m%s\x1b[0m", `DOG URI: ${dogTokenURI}`);
-
-                  expect(dogTokenURI.length).greaterThan(0);
+              it("\x1b[34mShould reverted with msg \x1b[36m'BasicNFT___InvalidTokenId' \x1b[34m!\x1b[0m", async () => {
+                  await expect(BasicNFT.tokenURI("0")).to.be.revertedWithCustomError(
+                      BasicNFT,
+                      "BasicNFT___InvalidTokenId"
+                  );
               });
           });
 
@@ -64,6 +63,28 @@ const { developmentChains } = require("../../helper-config");
                       await txResponse.wait(1);
                       console.log("\x1b[33m%s\x1b[0", "Waitng for NFT to be Minted...");
                   });
+              });
+          });
+
+          describe("\x1b[30mmintNFT\x1b[0m", () => {
+              it("\x1b[34mShould reverted with msg \x1b[36m'BasicNFT___InvalidTokenId' \x1b[34m!\x1b[0m", async () => {
+                  await expect(BasicNFT.tokenURI("0")).to.be.revertedWithCustomError(
+                      BasicNFT,
+                      "BasicNFT___InvalidTokenId"
+                  );
+              });
+
+              it("\x1b[34mShould return URI for a Valid Token on Successful Minting!", async () => {
+                  const txResponse = await BasicNFT.mintNFT();
+                  await txResponse.wait(1);
+
+                  const updatedTokenId = await BasicNFT.getCurrentToken();
+
+                  const uri = BasicNFT.tokenURI(updatedTokenId.toString());
+
+                  console.log("\x1b[32m%s\x1b[0m", `URI: ${uri.toString()}`);
+
+                  expect(+uri.toString().length).greaterThan(0);
               });
           });
       });
